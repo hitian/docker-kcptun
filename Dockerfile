@@ -2,7 +2,8 @@
 FROM alpine:latest
 
 # build for arm32 like [raspberry pi] or [tinker board]
-FROM arm32v6/alpine:latest
+#FROM arm32v6/alpine:latest
+
 MAINTAINER tian <t@hitian.info>
 
 # for chinese user
