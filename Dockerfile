@@ -1,18 +1,10 @@
-# build for amd64
-FROM alpine:latest
-
 # build for arm32 like [raspberry pi] or [tinker board]
-#FROM arm32v6/alpine:latest
+FROM arm32v6/golang:alpine as builder
 
-MAINTAINER tian <t@hitian.info>
+RUN apk update && \
+    apk upgrade && \
+    apk add git
+RUN go get -ldflags "-X main.VERSION=$(date -u +%Y%m%d) -s -w" github.com/xtaci/kcptun/client && go get -ldflags "-X main.VERSION=$(date -u +%Y%m%d) -s -w" github.com/xtaci/kcptun/server
 
-# for chinese user
-#RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g' /etc/apk/repositories
-
-RUN apk update && apk add --no-cache go git libc-dev && \
-    mkdir /go && export GOPATH=/go && \
-    go get -u github.com/xtaci/kcptun/client && \
-    go get -u github.com/xtaci/kcptun/server && \
-    cp $GOPATH/bin/client /usr/local/bin/kcptun-client && \
-    cp $GOPATH/bin/server /usr/local/bin/kcptun-server && \
-    rm -rf /go && apk del git go
+FROM arm32v6/alpine:latest
+COPY --from=builder /go/bin /bin
