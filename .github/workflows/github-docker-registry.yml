@@ -13,7 +13,7 @@ jobs:
       uses: actions/docker/login@master
       env:
         DOCKER_REGISTRY_URL: docker.pkg.github.com
-        DOCKER_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
+        DOCKER_PASSWORD: ${{ secrets.GITHUB_DOCKER_REG_TOKEN }}
         DOCKER_USERNAME: hitian
     - name: Build docker image
       uses: docker://docker:stable
