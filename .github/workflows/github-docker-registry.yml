@@ -18,8 +18,8 @@ jobs:
     - name: Build docker image
       uses: docker://docker:stable
       with:
-        args: build -t docker.pkg.github.com/${{ GITHUB_REPOSITORY }}/kcptun:latest .
+        args: build -t docker.pkg.github.com/hitian/docker-kcptun/kcptun:latest .
     - name: Push docker image to docker hub
       uses: docker://docker:stable
       with:
-        args: push docker.pkg.github.com/${{ GITHUB_REPOSITORY }}/kcptun
+        args: push docker.pkg.github.com/hitian/docker-kcptun/kcptun
